@@ -12,6 +12,33 @@ on:
           - test
           - prod
 
+      action:
+        description: 'Select Terraform action'
+        required: true
+        type: choice
+        options:
+          - init
+          - plan
+          - apply
+
+      component:
+        description: 'Select Terraform component'
+        required: true
+        type: choice
+        options:
+          - ec2
+          - s3
+          - iam
+      
+      region:
+        description: 'Select AWS region'
+        required: true
+        type: choice
+        options:
+          - ap-south-1
+          - us-east-1
+          - eu-west-1
+
 jobs:
 
   deploy:
@@ -19,5 +46,9 @@ jobs:
 
     steps:
 
-      - name: Deploy
-        run: echo "Deploying to ${{ inputs.environment }}"
+      - name: Show Selected Options
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Action: ${{ inputs.action }}"
+          echo "Component: ${{ inputs.component }}"
+          echo "AWS Region: ${{ inputs.region }}"
